@@ -76,7 +76,6 @@ public class DatabaseProvider extends ContentProvider {
         * 3.最后接上vnd.<authority>.<path>
         *   所以，对于content://com.demo.cc.firstcode.contact.provider/book这个内容URI，它所对应的MIME类型就可以写成：
         *   vnd.android.cursor.dir/vnd.com.demo.cc.firstcode.contact.provider.book
-        *
         *   对于content://com.demo.cc.firstcode.contact.provider/book/1这个内容URI，它所对应的MIME类型就可以写成：
         *   vnd.android.cursor.item/vnd.com.demo.cc.firstcode.contact.provider.book
         * */

@@ -20,6 +20,7 @@ android {
     sourceSets {
         main {
             res.srcDirs = [
+                'src/main/res/layouts/notify',
                 'src/main/res/layouts/contactslearn',
                 'src/main/res/layouts/savedata',
                 'src/main/res/layouts/newsdemo',

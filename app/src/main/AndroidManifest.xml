@@ -367,6 +367,7 @@
         <activity android:name="com.demo.cc.firstcode.savedata.FileType"/>
         <activity android:name="com.demo.cc.firstcode.savedata.SqliteLearn"/>
         <activity android:name="com.demo.cc.firstcode.contact.ContactsLearn"/>
+        <activity android:name="com.demo.cc.firstcode.notify.NotificationActivity"/>
 
         <activity android:name="com.demo.cc.learn.TableLearn"/>
 

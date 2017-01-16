@@ -1,5 +1,8 @@
 package com.demo.cc.appclick;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,11 +10,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +28,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +41,7 @@ import com.demo.cc.firstcode.fragment.MyFragment;
 import com.demo.cc.firstcode.layout.ListViewLearn;
 import com.demo.cc.firstcode.layout.UIWidgetLearn;
 import com.demo.cc.firstcode.newsdemo.NewsDemo;
+import com.demo.cc.firstcode.notify.NotificationActivity;
 import com.demo.cc.firstcode.receiver.LoginActivity;
 import com.demo.cc.firstcode.savedata.FileType;
 import com.demo.cc.firstcode.savedata.MyDatabaseHelper;
@@ -88,6 +97,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         Button forceOffline = (Button) findViewById(R.id.force_offline);
         forceOffline.setOnClickListener(this);
+
+        TextView notify = (TextView) findViewById(R.id.notify);
+        notify.setOnClickListener(this);
 
         TextView contacts_learn = (TextView) findViewById(R.id.contacts_learn);
         contacts_learn.setOnClickListener(this);
@@ -274,9 +286,178 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return super.onCreateOptionsMenu(menu);
     }
 
+    public void simpleNotice(View view) {
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        //此Builder为android.support.v4.app.NotificationCompat.Builder中的，下同。
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        //系统收到通知时，通知栏上面显示的文字。
+        mBuilder.setTicker("天津，晴，2～15度，微风");
+        //显示在通知栏上的小图标
+        mBuilder.setSmallIcon(R.drawable.ic_launcher);
+        //通知标题
+        mBuilder.setContentTitle("天气预报");
+        //通知内容
+        mBuilder.setContentText("天津，晴，2～15度，微风");
+
+        //设置大图标，即通知条上左侧的图片（如果只设置了小图标，则此处会显示小图标）
+        mBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+        //显示在小图标左侧的数字
+        mBuilder.setNumber(6);
+
+        //设置为不可清除模式
+        mBuilder.setOngoing(true);
+
+        //显示通知，id必须不重复，否则新的通知会覆盖旧的通知（利用这一特性，可以对通知进行更新）
+        nm.notify(1, mBuilder.build());
+    }
+
+    //点击通知进入一个Activity，点击返回时进入指定页面。
+    public void resultActivityBackApp(View view) {
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setTicker("通知标题2");
+        mBuilder.setSmallIcon(R.drawable.ic_launcher);
+        mBuilder.setContentTitle("通知标题2");
+        mBuilder.setContentText("点击通知进入一个Activity，点击返回时进入指定页面。");
+
+        //设置点击一次后消失（如果没有点击事件，则该方法无效。）
+        mBuilder.setAutoCancel(true);
+
+        //点击通知之后需要跳转的页面
+        Intent resultIntent = new Intent(this, NotificationActivity.class);
+
+        //使用TaskStackBuilder为“通知页面”设置返回关系
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        //为点击通知后打开的页面设定 返回 页面。（在manifest中指定）
+        stackBuilder.addParentStack(NotificationActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+
+        PendingIntent pIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pIntent);
+        // mId allows you to update the notification later on.
+        nm.notify(2, mBuilder.build());
+    }
+
+    //点击通知进入一个Activity，点击返回时回到桌面
+    public void resultActivityBackHome(View view) {
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setTicker("通知标题3");
+        mBuilder.setSmallIcon(R.drawable.ic_launcher);
+        mBuilder.setContentTitle("通知标题3");
+        mBuilder.setContentText("点击通知进入一个Activity，点击返回时回到桌面");
+
+        //设置点击一次后消失（如果没有点击事件，则该方法无效。）
+        mBuilder.setAutoCancel(true);
+
+        Intent notifyIntent = new Intent(this, MainActivity.class);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pIntent);
+
+        nm.notify(3, mBuilder.build());
+    }
+
+    //带进度条的通知
+    public void progressNotice(View view) {
+        final NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setTicker("通知标题4");
+        mBuilder.setContentTitle("Picture Download")
+                .setContentText("Download in progress")
+                .setSmallIcon(R.drawable.ic_launcher);
+
+        // 在后台线程中启动长时间操作
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int progress;
+                for (progress = 0; progress <= 100; progress++) {
+                    //将进度指示器设置为最大值，当前完成百分比，和确定状态
+                    mBuilder.setProgress(100, progress, false);
+
+                    //不明确进度的进度条
+//                    mBuilder.setProgress(0, 0, true);
+
+                    nm.notify(4, mBuilder.build());
+                    // 模拟延时
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // 当循环完成后，更新通知
+                mBuilder.setContentText("Download complete");
+                // 删除进度条
+                mBuilder.setProgress(0, 0, false);
+                nm.notify(4, mBuilder.build());
+            }
+        }
+        ).start();
+    }
+
+    //扩展布局的通知。按住通知条下滑，可以查看更详细的内容
+    public void expandLayoutNotice(View view) {
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setTicker("通知标题5");
+        mBuilder.setSmallIcon(R.drawable.ic_launcher);
+        mBuilder.setContentTitle("通知标题5");
+        mBuilder.setContentText("按住通知下拉可显示扩展布局");
+
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+        String[] events = new String[]{"Beijing", "Tianjin", "Shanghai", "Chongqing"};
+        // 设置扩展布局的标题
+        inboxStyle.setBigContentTitle("Event tracker details:");
+
+        for (String s : events) {
+            inboxStyle.addLine(s);
+        }
+        mBuilder.setStyle(inboxStyle);
+
+        nm.notify(5, mBuilder.build());
+    }
+
+    /*//自定义布局的通知
+    public void customLayoutNotice(View view) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setTicker("通知标题6");
+        mBuilder.setTicker("通知标题6");
+        mBuilder.setSmallIcon(R.drawable.ic_launcher);
+
+        //R.layout.custom_layout_notice
+        RemoteViews remoteViews = new RemoteViews(getPackageName(),R.layout.custom_layout_notice );
+        mBuilder.setContent(remoteViews);
+        //为RemoteViews上的按钮设置文字
+        remoteViews.setCharSequence(R.id.custom_layout_button1, setText, Button1);
+        remoteViews.setCharSequence(R.id.custom_layout_button2, setText, Button2);
+
+        //为RemoteViews上的按钮设置点击事件
+        Intent intent1 = new Intent(this, CustomLayoutResultActivity.class);
+        intent1.putExtra(content, From button1 click!);
+        PendingIntent pIntentButton1 = PendingIntent.getActivity(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.custom_layout_button1, pIntentButton1);
+
+        Intent intent2 = new Intent(this, CustomLayoutResultActivity.class);
+        intent2.putExtra(content, From button2 click!);
+        PendingIntent pIntentButton2 = PendingIntent.getActivity(this, 1, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.custom_layout_button2, pIntentButton2);
+
+        nm.notify(6, mBuilder.build());
+    }*/
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.notify:
+                simpleNotice(v);
+                resultActivityBackApp(v);
+                resultActivityBackHome(v);
+                progressNotice(v);
+                expandLayoutNotice(v);
+                break;
             case R.id.contacts_learn:
                 Intent contactsLearn = new Intent(this, ContactsLearn.class);
                 this.startActivity(contactsLearn);
