@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--
+    px 像素
+    pt 磅(多用于字体)
+    dp(dip) 密度无关像素。在不同的屏幕中显示比例将一致
+    sp 可伸缩像素
+    -->
+    <Button
+        android:id="@+id/button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="uisize"/>
+
+</LinearLayout>

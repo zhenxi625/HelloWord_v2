@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TableRow>
+                    <EditText
+                        android:id="@+id/input_message"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:hint="Type something"/>
+
+                    <Button
+                        android:id="@+id/send"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="send"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <Button
+                android:id="@+id/button_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:text="button_1"/>
+
+            <Button
+                android:id="@+id/button_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="button_2"/>
+
+            <Button
+                android:id="@+id/button_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="button_3"/>
+            <!--start-->
+            <!-- 定义第一个表格，指定第2列允许收缩，第3列允许拉伸 -->
+            <TableLayout
+                android:id="@+id/tableLayout01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="1"
+                android:background="#FFEC8B">
+
+                <!-- 直接添加按钮，自己占用一行 -->
+                <Button
+                    android:id="@+id/btn01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="独自一行"></Button>
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/btn02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="普通"></Button>
+
+                    <Button
+                        android:id="@+id/btn03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="允许被收缩允许被收缩允许被收缩允许被收缩"></Button>
+
+                    <Button
+                        android:id="@+id/btn04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="允许被拉伸"></Button>
+                </TableRow>
+            </TableLayout>
+            <!-- 定义第2个表格，指定第2列隐藏 -->
+            <TableLayout
+                android:id="@+id/tableLayout02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:collapseColumns="1"
+                android:background="#FFE4B5">
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/btn05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="普通"/>
+
+                    <Button
+                        android:id="@+id/btn06"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="被隐藏列"/>
+
+                    <Button
+                        android:id="@+id/btn07"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="允许被拉伸"/>
+                </TableRow>
+            </TableLayout>
+            <!-- 定义第3个表格，指定第2列填满空白-->
+            <TableLayout
+                android:id="@+id/tablelayout03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1"
+                android:background="#FFBBFF">
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/btn08"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="普通"/>
+
+                    <Button
+                        android:id="@+id/btn09"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="填满剩余空白"/>
+                </TableRow>
+            </TableLayout>
+            <!-- 定义第3个表格，指定第2列横跨2列-->
+            <TableLayout
+                android:id="@+id/tablelayout04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFACD">
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/btn10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="普通"/>
+
+                    <Button
+                        android:id="@+id/btn11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:text="填满剩余空白"/>
+                </TableRow>
+            </TableLayout>
+            <!--end-->
+
+            <Button
+                android:id="@+id/btn12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

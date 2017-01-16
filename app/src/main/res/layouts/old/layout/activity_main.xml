@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.demo.cc.appclick.MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/force_offline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="强制下线" />
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#D8BFD8"
+                android:stretchColumns="*"
+                android:text="测试">
+
+                <!-- 微博数 -->
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_frame_gray"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/drawApi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="all"
+                            android:padding="5dp"
+                            android:text="@string/drawApi" />
+
+                        <TextView
+                            android:id="@+id/createUser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="all"
+                            android:padding="5dp"
+                            android:text="@string/registered" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_frame_gray"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/chooseDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="all"
+                            android:padding="5dp"
+                            android:text="时间选择" />
+
+                        <TextView
+                            android:id="@+id/alarm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="all"
+                            android:padding="5dp"
+                            android:text="闹钟" />
+
+                    </LinearLayout>
+                    <!-- 好友数 -->
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_frame_gray"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/goTabHost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="all"
+                            android:padding="5dp"
+                            android:text="goTabHost" />
+
+                        <TextView
+                            android:id="@+id/showBig"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="all"
+                            android:padding="5dp"
+                            android:text="大图展示" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/webView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="webView页" />
+
+                    <TextView
+                        android:id="@+id/webViewDeo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="webView demo" />
+
+                    <TextView
+                        android:id="@+id/contact_webView_learn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="InternetDemo" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="去第二页" />
+
+                    <TextView
+                        android:id="@+id/antoButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="去输入自动提示页" />
+
+                    <TextView
+                        android:id="@+id/table_row_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="表格布局展示" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#EEE685">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/firstCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="第一行代码" />
+
+                    <TextView
+                        android:id="@+id/uiWidget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="简单控件学习" />
+
+                    <TextView
+                        android:id="@+id/uiLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="uiLayout" />
+
+                    <TextView
+                        android:id="@+id/frame_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="frameLayout" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/table_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="tableLayout" />
+
+                    <TextView
+                        android:id="@+id/title2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="title2" />
+
+                    <TextView
+                        android:id="@+id/list_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="listView" />
+
+                    <TextView
+                        android:id="@+id/ui_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="uiSize" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/liaoTian"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="聊天页面" />
+
+                    <TextView
+                        android:id="@+id/fragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="fragment" />
+
+                    <TextView
+                        android:id="@+id/news_demo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="新闻" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/send_receiver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="发送广播" />
+
+                    <TextView
+                        android:id="@+id/li_receiver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="有序广播" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#E3E3E3"
+                android:stretchColumns="*">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/fileSave"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="文件方式保存数据" />
+
+                    <TextView
+                        android:id="@+id/contact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="新增联系人" />
+
+                    <TextView
+                        android:id="@+id/contacts_learn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="显示联系人" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/sqLite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="创建表" />
+
+                    <TextView
+                        android:id="@+id/insertData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="数据库测试" />
+
+                    <TextView
+                        android:id="@+id/tran"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="事务" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:enabled="true"
+                android:gravity="top"
+                android:inputType="text"
+                android:maxLines="10"
+                android:minLines="8"
+                android:scrollbars="vertical"
+                android:text="用于菜单内容测试(点击菜单改变字体颜色/字体大小)" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

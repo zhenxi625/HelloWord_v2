@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="books">
+        <item>测试1</item>
+        <item>测试2</item>
+        <item>测试3</item>
+    </string-array>
+</resources>

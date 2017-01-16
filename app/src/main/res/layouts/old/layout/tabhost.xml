@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabHost01"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/tab01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFB6C1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11pt"
+            android:text="blue"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11pt"
+            android:text="gree"
+            />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="返回第一页" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tab02"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#EEC591">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11pt"
+            android:text="333333"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11pt"
+            android:text="44444"/>
+
+        <TextView
+            android:id="@+id/color_textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:width="210px"
+            android:height="50px"
+            android:background="#ff0000" />
+
+        <TextView
+            android:id="@+id/color_textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:width="180px"
+            android:height="50px"
+            android:background="#dd0000" />
+
+        <TextView
+            android:id="@+id/color_textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:width="150px"
+            android:height="50px"
+            android:background="#bb0000" />
+
+        <TextView
+            android:id="@+id/color_textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:width="120px"
+            android:height="50px"
+            android:background="#990000" />
+
+        <TextView
+            android:id="@+id/color_textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:width="90px"
+            android:height="50px"
+            android:background="#770000" />
+
+        <TextView
+            android:id="@+id/color_textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:width="60px"
+            android:height="50px"
+            android:background="#550000" />
+
+        <TextView
+            android:id="@+id/color_textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:width="30px"
+            android:height="50px"
+            android:background="#330000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tab03"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#C1CDCD">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11pt"
+            android:text="5555"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11pt"
+            android:text="66666"/>
+
+        <Button
+            android:id="@+id/simple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示简单提示" />
+
+        <Button
+            android:id="@+id/asImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示带图片的提示" />
+
+    </LinearLayout>
+</TabHost>

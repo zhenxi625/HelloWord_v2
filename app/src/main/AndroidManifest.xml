@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.demo.cc.appclick">
+
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
+    <!--允许一个程序打开窗口使用 TYPE_SYSTEM_ALERT，显示在其他所有程序的顶层-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--<uses-permission android:name="com.google.android.apps.photos.permission.GOOGLE_PHOTOS"/>-->
+
+    <!-- android系统所有可声明的权限：https://developer.android.com/reference/android/Manifest.permission.html -->
+    <!--允许程序访问系统网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--授予程序访问系统开机事件的权限-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <!--在SD卡中创建与删除文件权限-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!--向SD卡写入数据权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--读取联系人ContentProvider权限-->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!--写入联系人ContentProvider权限-->
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <!--读取短信ContentProvider的权限-->
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <!--访问网络权限-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- 配置相机拍照所需相关的权限  ，二维码需要 -->
+    <!-- <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    允许程序录制音频
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    访问闪光灯
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    允许访问振动设备
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    允许一个程序获取信息有关当前或最近运行的任务，一个缩略的任务状态，是否活动等等
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    允许一个程序访问精良位置(如GPS)
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    允许程序访问Wi-Fi网络状态信息
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    允许程序改变Wi-Fi连接状态
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    允许一个程序初始化一个电话拨号不需通过拨号用户界面需要用户确认
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+
+    允许程序禁用键盘锁
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
+    允许一个程序访问CellID或WiFi热点来获取粗略的位置
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+     允许一个程序广播常用intents
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
+    允许程序读取或写入系统设置
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />-->
+
+<!--
+    允许读写访问"properties"表在checkin数据库中，改值可以修改上传
+    <uses-permission android:name="android.permission.ACCESS_CHECKIN_PROPERTIES" ></uses-permission>
+
+    允许应用程序访问额外的位置提供命令
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" ></uses-permission>
+
+    允许程序创建模拟位置提供用于测试
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" ></uses-permission>
+
+    允许程序访问有关GSM网络信息
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" ></uses-permission>
+
+    允许程序使用SurfaceFlinger底层特性
+    <uses-permission android:name="android.permission.ACCESS_SURFACE_FLINGER" ></uses-permission>
+
+    允许程序发布系统级服务
+    <uses-permission android:name="android.permission.ADD_SYSTEM_SERVICE" ></uses-permission>
+
+    允许程序更新手机电池统计信息
+    <uses-permission android:name="android.permission.BATTERY_STATS" ></uses-permission>
+
+    允许程序连接到已配对的蓝牙设备
+    <uses-permission android:name="android.permission.BLUETOOTH" ></uses-permission>
+
+    允许程序发现和配对蓝牙设备
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" ></uses-permission>
+
+    请求能够禁用设备
+    <uses-permission android:name="android.permission.BRICK" ></uses-permission>
+
+    允许程序广播一个提示消息在一个应用程序包已经移除后
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REMOVED" ></uses-permission>
+
+    允许一个程序拨打任何号码，包含紧急号码无需通过拨号用户界面需要用户确认
+    <uses-permission android:name="android.permission.CALL_PRIVILEGED" ></uses-permission>
+
+    请求访问使用照相设备
+    <uses-permission android:name="android.permission.CAMERA" ></uses-permission>
+
+    允许一个程序是否改变一个组件或其他的启用或禁用
+    <uses-permission android:name="android.permission.CHANGE_COMPONENT_ENABLED_STATE" ></uses-permission>
+
+    允许一个程序修改当前设置，如本地化
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" ></uses-permission>
+
+    允许程序改变网络连接状态
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" ></uses-permission>
+
+    允许一个程序清楚缓存从所有安装的程序在设备中
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE" ></uses-permission>
+
+    允许一个程序清除用户设置
+    <uses-permission android:name="android.permission.CLEAR_APP_USER_DATA" ></uses-permission>
+
+    允许启用禁止位置更新提示从无线模块
+    <uses-permission android:name="android.permission.CONTROL_LOCATION_UPDATES" ></uses-permission>
+
+    允许程序删除缓存文件
+    <uses-permission android:name="android.permission.DELETE_CACHE_FILES" ></uses-permission>
+
+    允许一个程序删除包
+    <uses-permission android:name="android.permission.DELETE_PACKAGES" ></uses-permission>
+
+    允许访问底层电源管理
+    <uses-permission android:name="android.permission.DEVICE_POWER" ></uses-permission>
+
+    允许程序RW诊断资源
+    <uses-permission android:name="android.permission.DIAGNOSTIC" ></uses-permission>
+
+    允许程序返回状态抓取信息从系统服务
+    <uses-permission android:name="android.permission.DUMP" ></uses-permission>
+
+    允许一个程序扩展收缩状态栏
+    android.permission.EXPAND_STATUS_BAR
+
+    作为一个工厂测试程序，运行在root用户
+    android.permission.FACTORY_TEST
+
+    访问闪光灯
+    android.permission.FLASHLIGHT
+
+    允许程序强行一个后退操作是否在顶层activities
+    android.permission.FORCE_BACK
+
+    一个预留权限
+    android.permission.FOTA_UPDATE android
+
+    访问一个帐户列表在Accounts Service中
+    android.permission.GET_ACCOUNTS
+
+    允许一个程序获取任何package占用空间容量
+    android.permission.GET_PACKAGE_SIZE
+
+    允许访问硬件
+    android.permission.HARDWARE_TEST
+
+    允许一个程序截获用户事件如按键、触摸、轨迹球等等到一个时间流
+    android.permission.INJECT_EVENTS
+
+    允许一个程序安装packages
+    android.permission.INSTALL_PACKAGES
+
+    允许打开窗口使用系统用户界面
+    android.permission.INTERNAL_SYSTEM_WINDOW
+
+    允许程序打开网络套接字
+    android.permission.INTERNET
+
+    允许程序管理(创建、催后、z- order默认向z轴推移)程序引用在窗口管理器中
+    android.permission.MANAGE_APP_TOKENS
+
+    恢复出厂设置权限，清除一切用户数据
+    android.permission.MASTER_CLEAR
+
+    允许程序修改全局音频设置
+    android.permission.MODIFY_AUDIO_SETTINGS
+
+    允许修改话机状态，如电源，人机接口等
+    android.permission.MODIFY_PHONE_STATE
+
+    允许一个程序设置他的activities显示
+    android.permission.PERSISTENT_ACTIVITY
+
+    允许程序监视、修改有关播出电话
+    android.permission.PROCESS_OUTGOING_CALLS
+
+    允许程序读取用户日历数据
+    android.permission.READ_CALENDAR
+
+    允许程序屏幕波或和更多常规的访问帧缓冲数据
+    android.permission.READ_FRAME_BUFFER
+
+    允许程序读取底层系统日志文件
+    android.permission.READ_INPUT_STATE
+
+    允许程序读取所有者数据
+    android.permission.READ_OWNER_DATA
+
+    允许程序读取短信息
+    android.permission.READ_SMS
+
+    允许程序读取同步设置
+    android.permission.READ_SYNC_SETTINGS
+
+    允许程序读取同步状态
+    android.permission.READ_SYNC_STATS
+
+    请求能够重新启动设备
+    android.permission.REBOOT
+
+    允许一个程序接收到 ACTION_BOOT_COMPLETED广播在系统完成启动
+    android.permission.RECEIVE_BOOT_COMPLETED
+
+    允许一个程序监控将收到MMS彩信,记录或处理
+    android.permission.RECEIVE_MMS
+
+    允许程序监控一个将收到短信息，记录或处理
+    android.permission.RECEIVE_SMS
+
+    允许程序监控将收到WAP PUSH信息
+    android.permission.RECEIVE_WAP_PUSH
+
+    允许程序录制音频
+    android.permission.RECORD_AUDIO
+
+    允许程序改变Z轴排列任务
+    android.permission.REORDER_TASKS
+
+    允许程序重新启动其他程序
+    android.permission.RESTART_PACKAGES
+
+    允许程序发送SMS短信
+    android.permission.SEND_SMS
+
+    允许程序监控或控制activities已经启动全局系统中
+    android.permission.SET_ACTIVITY_WATCHER
+
+    允许程序控制是否活动间接完成在处于后台时
+    android.permission.SET_ALWAYS_FINISH
+
+    修改全局信息比例
+    android.permission.SET_ANIMATION_SCALE
+
+    配置一个程序用于调试
+    android.permission.SET_DEBUG_APP
+
+    允许底层访问设置屏幕方向和实际旋转
+    android.permission.SET_ORIENTATION
+
+    允许一个程序修改列表参数PackageManager.addPackageToPreferred() 和PackageManager.removePackageFromPreferred()方法
+    android.permission.SET_PREFERRED_APPLICATIONS
+
+    允许程序当前运行程序强行到前台
+    android.permission.SET_PROCESS_FOREGROUND
+
+    允许设置最大的运行进程数量
+    android.permission.SET_PROCESS_LIMIT
+
+    允许程序设置时间区域
+    android.permission.SET_TIME_ZONE
+
+    允许程序设置壁纸
+    android.permission.SET_WALLPAPER
+
+    允许程序设置壁纸hits
+    android.permission.SET_WALLPAPER_HINTS
+
+    允许程序请求发送信号到所有显示的进程中
+    android.permission.SIGNAL_PERSISTENT_PROCESSES
+
+    允许程序打开、关闭或禁用状态栏及图标
+    android.permission.STATUS_BAR
+
+    允许一个程序访问订阅RSS Feed内容提供
+    android.permission.SUBSCRIBED_FEEDS_READ
+
+    系统暂时保留改设置
+    android.permission.SUBSCRIBED_FEEDS_WRITE
+
+    允许使用PowerManager的 WakeLocks保持进程在休眠时从屏幕消失
+    android.permission.WAKE_LOCK
+
+    允许程序写入API设置
+    android.permission.WRITE_APN_SETTINGS
+
+    允许一个程序写入但不读取用户日历数据
+    android.permission.WRITE_CALENDAR
+
+    允许程序写入但不读取用户联系人数据
+    android.permission.WRITE_CONTACTS
+
+    允许程序修改Google服务地图
+    android.permission.WRITE_GSERVICES
+
+    允许一个程序写入但不读取所有者数据
+    android.permission.WRITE_OWNER_DATA
+
+    允许程序写短信
+    android.permission.WRITE_SMS
+
+    允许程序写入同步设置
+    android.permission.WRITE_SYNC_SETTINGS
+    -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light" >
+        <activity android:name="com.demo.cc.firstcode.receiver.LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <!--主活动-->
+                <action android:name="android.intent.action.MAIN" />
+                <!--category:顶层窗口的访问。应用程序初始活动，并出现在设备应用程序启动程序的顶层-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity"/>
+
+        <provider
+            android:authorities="com.demo.cc.firstcode.contact.provider"
+            android:name="com.demo.cc.firstcode.contact.DatabaseProvider"
+            android:exported = "true"/>
+
+        <activity android:name="com.demo.cc.firstcode.FirstActivity"
+            android:launchMode="singleInstance"
+            android:label="This is FirstActivity"/>
+
+        <!-- singleInstance 放在单独的栈里； singleTop 启动多个activity； singleTask 启动一个activity -->
+        <activity android:name="com.demo.cc.firstcode.Second2Activity"
+            android:launchMode="singleInstance"
+            android:label="This is Second2Activity">
+            <intent-filter>
+                <action android:name="com.demo.cc.firstcode.ACTION_START" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.demo.cc.firstcode.MY_CATEGORY" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.demo.cc.firstcode.ThirdActivity"/>
+        <activity android:name="com.demo.cc.firstcode.layout.UIWidgetLearn"/>
+        <activity android:name="com.demo.cc.firstcode.layout.ListViewLearn"/>
+        <activity android:name="com.demo.cc.firstcode.fragment.MyFragment"/>
+        <activity android:name="com.demo.cc.firstcode.newsdemo.NewsDemo"/>
+        <activity android:name="com.demo.cc.firstcode.newsdemo.NewsContentActivity"/>
+        <activity android:name="com.demo.cc.firstcode.LiaoTian"/>
+        <activity android:name="com.demo.cc.firstcode.UISizeLearn"/>
+        <activity android:name="com.demo.cc.firstcode.savedata.FileType"/>
+        <activity android:name="com.demo.cc.firstcode.savedata.SqliteLearn"/>
+        <activity android:name="com.demo.cc.firstcode.contact.ContactsLearn"/>
+
+        <activity android:name="com.demo.cc.learn.TableLearn"/>
+
+        <!--去WebView页-->
+        <activity android:name="com.demo.cc.learn.WebViewLearn"/>
+        <!--InternetDemo-->
+        <activity android:name="com.demo.cc.learn.ContactActivity"/>
+        <activity android:name="com.demo.cc.appclick.ContentProviderTest"/>
+        <!--去第二页-->
+        <activity android:name=".SecondActivity"/>
+        <!--输入自动提示页-->
+        <activity android:name=".AutoTextTest"/>
+        <!--日期选择页-->
+        <activity android:name=".ChooseDate"/>
+        <!--点击小图展示大图-->
+        <activity android:name=".GridViewTest"/>
+        <!--table标签-->
+        <activity android:name=".TabHostTest"/>
+        <!--闹钟-->
+        <activity android:name=".Alarm"/>
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <activity android:name=".ForAlarm"/>
+
+        <!--注册结果显示-->
+        <activity android:name=".BundleResult"/>
+
+        <!--<receiver android:name=".BatteryReceiver">-->
+        <!--&lt;!&ndash;监听电池电量改变&ndash;&gt;-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.BATTERY_CHANGED"/>-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
+
+        <!--配置一个service组件-->
+        <!--<service android:name=".ServiceTest">
+            <intent-filter>
+                &lt;!&ndash;为service组件的intent-filter配置action&ndash;&gt;
+                <action android:name="ziDingYiActionName"/>
+            </intent-filter>
+        </service>-->
+        <!--定义一个BroadCastReceiver，监听系统开机广播-->
+        <service android:name=".AutoService"/>
+        <receiver android:name=".AutoReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.demo.cc.firstcode.receiver.MyBroadcastReceiver">
+            <intent-filter android:priority="100">
+                <action android:name="com.demo.cc.firstcode.receiver.MY_BROADCAST"/>
+            </intent-filter>
+        </receiver>
+
+        <!--强制离线-->
+        <receiver android:name="com.demo.cc.firstcode.receiver.ForceOfflineReceiver">
+            <intent-filter>
+                <action android:name="com.demo.cc.firstcode.receiver.FORCE_OFFLINE"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+
+</manifest>

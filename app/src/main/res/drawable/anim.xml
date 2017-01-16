@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+
+    <item android:drawable="@drawable/fat01" android:duration="60"/>
+    <item android:drawable="@drawable/fat02" android:duration="60"/>
+    <item android:drawable="@drawable/fat03" android:duration="60"/>
+    <item android:drawable="@drawable/fat04" android:duration="60"/>
+    <item android:drawable="@drawable/fat05" android:duration="60"/>
+    <item android:drawable="@drawable/fat06" android:duration="60"/>
+    <item android:drawable="@drawable/fat07" android:duration="60"/>
+    <item android:drawable="@drawable/fat08" android:duration="60"/>
+    <item android:drawable="@drawable/fat09" android:duration="60"/>
+    <item android:drawable="@drawable/fat10" android:duration="60"/>
+    <item android:drawable="@drawable/fat11" android:duration="60"/>
+    <item android:drawable="@drawable/fat12" android:duration="60"/>
+
+</animation-list>

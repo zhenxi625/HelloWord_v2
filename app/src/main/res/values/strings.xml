@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">hello world</string>
+    <string name="goBack">返回</string>
+    <string name="edit">编辑</string>
+    <string name="registered">注册(可点)</string>
+    <string name="drawApi">绘图API展示(可点)</string>
+    <string name="read">读取数据</string>
+    <string name="write">写入数据</string>
+    <string name="insert">插入数据</string>
+    <string name="search">查询</string>
+    <string name="add">添加</string>
+    <string name="name">联系人名称</string>
+    <string name="phone">电话</string>
+    <string name="email">Email</string>
+    <string name="lension_sms">监听用户短信</string>
+    <string name="start">启动service</string>
+    <string name="stop">停止service</string>
+    <string name="hello">你好，服务已自动启动</string>
+    <string name="setTime">设置闹钟</string>
+    <string name="play">播放</string>
+    <string name="fat_stop">停止</string>
+
+    <string name="circle">圆形</string>
+    <string name="square">长方形</string>
+    <string name="rect">正方形</string>
+    <string name="round_ret">圆角矩形</string>
+    <string name="oval">椭圆形</string>
+    <string name="triangle">三角形</string>
+    <string name="pentagon">五角形</string>
+
+    <!-- webview js交互相关 s-->
+    <string name="webview_error_tip">数据加载失败，请下拉刷新</string>
+    <string name="webview_load_fail" formatted='false'>网页(%s)加载出错：%s,%s</string>
+    <string name="dialog_title_system_msg">系统消息</string>
+    <!-- webview js交互相关 e-->
+</resources>
