@@ -1,6 +1,5 @@
 package com.demo.cc.appclick;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -10,16 +9,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
+import android.telephony.SmsManager;
+import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +30,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ import com.demo.cc.firstcode.receiver.LoginActivity;
 import com.demo.cc.firstcode.savedata.FileType;
 import com.demo.cc.firstcode.savedata.MyDatabaseHelper;
 import com.demo.cc.firstcode.savedata.SqliteLearn;
+import com.demo.cc.firstcode.sms.ChoosePic;
+import com.demo.cc.firstcode.sms.SMSActivity;
 import com.demo.cc.learn.ContactActivity;
 import com.demo.cc.learn.TableLearn;
 import com.demo.cc.learn.WebActivity;
@@ -54,6 +57,7 @@ import com.demo.cc.model.Person;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -87,7 +91,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
-        dbHelper = new MyDatabaseHelper(this,"BookStore.db",null,2);
+        dbHelper = new MyDatabaseHelper(this, "BookStore.db", null, 2);
 
         //监听网络变化
         IntentFilter intentFilter = new IntentFilter();
@@ -97,6 +101,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         Button forceOffline = (Button) findViewById(R.id.force_offline);
         forceOffline.setOnClickListener(this);
+
+        TextView choosePic = (TextView) findViewById(R.id.choosePic);
+        choosePic.setOnClickListener(this);
+
+        TextView smsTest = (TextView) findViewById(R.id.smsTest);
+        smsTest.setOnClickListener(this);
 
         TextView notify = (TextView) findViewById(R.id.notify);
         notify.setOnClickListener(this);
@@ -451,6 +461,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.choosePic:
+                Intent choosePic = new Intent(this, ChoosePic.class);
+                this.startActivity(choosePic);
+                break;
+            case R.id.smsTest:
+                Intent smsTest = new Intent(this, SMSActivity.class);
+                this.startActivity(smsTest);
+                break;
             case R.id.notify:
                 simpleNotice(v);
                 resultActivityBackApp(v);
@@ -466,17 +484,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 SQLiteDatabase database = dbHelper.getWritableDatabase();
                 database.beginTransaction();
                 try {
-                    database.delete("book",null,null);
+                    database.delete("book", null, null);
                     /*if (true){
                         //手动抛出异常，让事务失败
                         throw new NullPointerException();
                     }*/
                     ContentValues values = new ContentValues();
-                    values.put("name","ttt");
-                    values.put("author","aaa");
-                    values.put("pages",12);
-                    values.put("price",11.22);
-                    database.insert("book",null,values);
+                    values.put("name", "ttt");
+                    values.put("author", "aaa");
+                    values.put("pages", 12);
+                    values.put("price", 11.22);
+                    database.insert("book", null, values);
                     database.setTransactionSuccessful();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -743,4 +761,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Toast.makeText(context, "本地广播", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
