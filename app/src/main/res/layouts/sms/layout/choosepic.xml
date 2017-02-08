@@ -8,7 +8,13 @@
         android:id="@+id/take_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="拍照"/>
+        android:text="打开相机"/>
+
+    <Button
+        android:id="@+id/choose_from_album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打开相册"/>
 
     <ImageView
         android:id="@+id/picture"

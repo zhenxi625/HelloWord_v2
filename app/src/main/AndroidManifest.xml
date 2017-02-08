@@ -29,6 +29,8 @@
     <!--允许访问振动设备-->
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <!-- 配置相机拍照所需相关的权限，二维码需要 -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -335,6 +337,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
 
         <provider
             android:authorities="com.demo.cc.firstcode.contact.provider"
