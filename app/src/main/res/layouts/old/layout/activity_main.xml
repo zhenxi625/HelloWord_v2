@@ -367,6 +367,11 @@
                 android:scrollbars="vertical"
                 android:text="用于菜单内容测试(点击菜单改变字体颜色/字体大小)" />
 
+            <Button
+                android:id="@+id/change_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="改变内容"/>
 
 
         </LinearLayout>

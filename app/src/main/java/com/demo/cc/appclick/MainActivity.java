@@ -15,6 +15,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
@@ -58,6 +60,7 @@ import com.demo.cc.model.Person;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.logging.LogRecord;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -83,6 +86,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     final int FONT_GREEN = 0x76EE00;
 
+    public static final int UPDATE_TEXT = 1;
+
+    private Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+            switch (msg.what){
+                case UPDATE_TEXT:
+                    editText.setText("内容已被改变");
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +119,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Button forceOffline = (Button) findViewById(R.id.force_offline);
         forceOffline.setOnClickListener(this);
 
+        //线程
+        Button changeText = (Button) findViewById(R.id.change_text);
+        changeText.setOnClickListener(this);
+
+        //拍照\裁剪
         TextView choosePic = (TextView) findViewById(R.id.choosePic);
         choosePic.setOnClickListener(this);
 
@@ -461,6 +483,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.change_text:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Message message = new Message();
+                        message.what = UPDATE_TEXT;
+                        handler.sendMessage(message);//将Message对象发送出去
+                    }
+                }).start();
+                break;
             case R.id.choosePic:
                 Intent choosePic = new Intent(this, ChoosePic.class);
                 this.startActivity(choosePic);
