@@ -338,6 +338,14 @@
         </activity>
         <activity android:name=".MainActivity"/>
 
+        <service  android:name="com.demo.cc.firstcode.service.MyService"/>
+
+        <service  android:name="com.demo.cc.firstcode.service.MyIntentService"/>
+
+        <!--一直运行的service-->
+        <service  android:name="com.demo.cc.firstcode.service.LongRunningService"/>
+        <receiver android:name="com.demo.cc.firstcode.service.AlarmReceiver"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"

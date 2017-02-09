@@ -3,10 +3,12 @@ package com.demo.cc.appclick;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
@@ -16,6 +18,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
@@ -49,6 +52,9 @@ import com.demo.cc.firstcode.receiver.LoginActivity;
 import com.demo.cc.firstcode.savedata.FileType;
 import com.demo.cc.firstcode.savedata.MyDatabaseHelper;
 import com.demo.cc.firstcode.savedata.SqliteLearn;
+import com.demo.cc.firstcode.service.LongRunningService;
+import com.demo.cc.firstcode.service.MyIntentService;
+import com.demo.cc.firstcode.service.MyService;
 import com.demo.cc.firstcode.sms.ChoosePic;
 import com.demo.cc.firstcode.sms.SMSActivity;
 import com.demo.cc.learn.ContactActivity;
@@ -88,6 +94,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public static final int UPDATE_TEXT = 1;
 
+    private MyService.DownloadBinder downloadBinder;
+
+    private ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            downloadBinder = (MyService.DownloadBinder) service;
+            downloadBinder.startDownload();
+            downloadBinder.getProgress();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
     private Handler handler = new Handler(){
         public void handleMessage(Message msg){
             switch (msg.what){
@@ -106,6 +129,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //设置容器，引用布局，相当于引用某个界面
         setContentView(R.layout.activity_main);
 
+        //启动Service(可一直运行的Service，cpu睡眠可被唤醒)
+        Intent intent1 = new Intent(this, LongRunningService.class);
+        startService(intent1);
+
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
         dbHelper = new MyDatabaseHelper(this, "BookStore.db", null, 2);
@@ -118,6 +145,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         Button forceOffline = (Button) findViewById(R.id.force_offline);
         forceOffline.setOnClickListener(this);
+
+        //启动IntentService
+        Button intentService = (Button) findViewById(R.id.start_intent_service);
+        intentService.setOnClickListener(this);
+
+        //绑定服务
+        Button bindService = (Button) findViewById(R.id.bind_service);
+        bindService.setOnClickListener(this);
+
+        //取消绑定
+        Button unbindService = (Button) findViewById(R.id.unbind_service);
+        unbindService.setOnClickListener(this);
+
+        //开启服务
+        Button startService = (Button) findViewById(R.id.start_service);
+        startService.setOnClickListener(this);
+
+        //停止服务
+        Button stopService = (Button) findViewById(R.id.stop_service);
+        stopService.setOnClickListener(this);
 
         //线程
         Button changeText = (Button) findViewById(R.id.change_text);
@@ -483,6 +530,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.start_intent_service:
+                Log.d("MainActivity","当前线程id:"+Thread.currentThread().getId());
+                Intent intentService = new Intent(this, MyIntentService.class);
+                startService(intentService);
+                break;
+            case R.id.bind_service:
+                Intent bindIntent = new Intent(this, MyService.class);
+                bindService(bindIntent,connection,BIND_AUTO_CREATE);
+                break;
+            case R.id.unbind_service:
+                unbindService(connection);
+                break;
+            case R.id.start_service:
+                Intent startIntent = new Intent(this, MyService.class);
+                startService(startIntent);
+                Log.i("MainActivity","启动服务");
+                break;
+            case R.id.stop_service:
+                Intent stopIntent = new Intent(this, MyService.class);
+                stopService(stopIntent);
+                break;
             case R.id.change_text:
                 new Thread(new Runnable() {
                     @Override
