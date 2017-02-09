@@ -35,6 +35,9 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <!--允许一个程序访问精良位置(如GPS)-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <!--
     允许程序录制音频
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -47,9 +50,6 @@
 
     允许一个程序获取信息有关当前或最近运行的任务，一个缩略的任务状态，是否活动等等
     <uses-permission android:name="android.permission.GET_TASKS" />
-
-    允许一个程序访问精良位置(如GPS)
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     允许程序访问Wi-Fi网络状态信息
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />

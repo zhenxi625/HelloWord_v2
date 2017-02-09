@@ -1,5 +1,6 @@
 package com.demo.cc.appclick;
 
+import android.Manifest;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -10,23 +11,24 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
-import android.telephony.SmsManager;
-import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,11 +64,12 @@ import com.demo.cc.learn.TableLearn;
 import com.demo.cc.learn.WebActivity;
 import com.demo.cc.learn.WebViewLearn;
 import com.demo.cc.model.Person;
+import com.demo.cc.util.HttpCallbackListener;
+import com.demo.cc.util.HttpUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
-import java.util.logging.LogRecord;
+import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -94,7 +97,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public static final int UPDATE_TEXT = 1;
 
+    public static final int SHOW_RESPONSE = 0;
+
+    public static final int SHOW_LOCATION = 2;
+
+    final int ACCESS_COARSE_LOCATION_NUM = 111;
+
     private MyService.DownloadBinder downloadBinder;
+
+    private TextView positionTextView;//位置信息
+    private LocationManager locationManager;
+    private String provider;
 
     private ServiceConnection connection = new ServiceConnection() {
 
@@ -111,12 +124,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     };
 
-    private Handler handler = new Handler(){
-        public void handleMessage(Message msg){
-            switch (msg.what){
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
                 case UPDATE_TEXT:
                     editText.setText("内容已被改变");
                     break;
+                case SHOW_LOCATION:
+                    String currentPosition = (String) msg.obj;
+                    positionTextView.setText(currentPosition);
+                    break;
+                case SHOW_RESPONSE:
+                    String response = (String) msg.obj;
+                    editText.setText(response);
                 default:
                     break;
             }
@@ -145,6 +165,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         Button forceOffline = (Button) findViewById(R.id.force_offline);
         forceOffline.setOnClickListener(this);
+
+        //位置信息
+        positionTextView = (TextView) findViewById(R.id.position_text_view);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        getPosition();
+
+        //发送请求
+        Button sendRequest = (Button) findViewById(R.id.send_request);
+        sendRequest.setOnClickListener(this);
 
         //启动IntentService
         Button intentService = (Button) findViewById(R.id.start_intent_service);
@@ -277,6 +306,61 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Log.i("cxl", "创建");
     }
 
+    //用户选择允许或需要后，会回调onRequestPermissionsResult方法, 该方法类似于onActivityResult
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == ACCESS_COARSE_LOCATION_NUM) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getPosition();
+            } else {
+                Toast.makeText(this, "没有获取位置信息权限", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    //检查有没有位置信息权限
+    private void getPosition(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_COARSE_LOCATION_NUM);
+        }else {
+            //获取所有可用的位置提供器
+            List<String> providerList = locationManager.getProviders(true);
+            if (providerList.contains(LocationManager.GPS_PROVIDER)) {
+                provider = LocationManager.GPS_PROVIDER;
+            } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
+                provider = LocationManager.NETWORK_PROVIDER;
+            } else {
+                Toast.makeText(this, "当前没有可用的位置信息", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Location location = locationManager.getLastKnownLocation(provider);
+            if (location != null) {
+                showLocation(location);
+            }
+            locationManager.requestLocationUpdates(provider, 5000, 1, locationLisener);
+        }
+    }
+
+    private void showLocation2(final Location location){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    StringBuilder url = new StringBuilder();
+                    url.append("http://maps.googleapis.com/maps/api/geocode/json?latlng=");
+                    url.append(location.getLatitude()).append(",");
+                    url.append(location.getLongitude());
+                    url.append("&sensor=false");
+                    // TODO: 2017/2/9
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -305,11 +389,52 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
 
+        //关闭程序时将监听器移除
+        if (locationManager != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            locationManager.removeUpdates(locationLisener);
+        }
         //取消动态注册的广播接收器
         unregisterReceiver(networkChangeReceiver);
 
         localBroadcastManager.unregisterReceiver(localReceiver);
         Log.i("cxl", "销毁");
+    }
+
+    LocationListener locationLisener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            showLocation(location);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
+
+    private void showLocation(Location location){
+        String currentPosition = "纬度:"+location.getLatitude()+",经度："+location.getLongitude();
+        positionTextView.setText(currentPosition);
     }
 
     @Override
@@ -530,14 +655,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.send_request:
+                sendRequestWithHttpURLConnection();
+                break;
             case R.id.start_intent_service:
-                Log.d("MainActivity","当前线程id:"+Thread.currentThread().getId());
+                Log.d("MainActivity", "当前线程id:" + Thread.currentThread().getId());
                 Intent intentService = new Intent(this, MyIntentService.class);
                 startService(intentService);
                 break;
             case R.id.bind_service:
                 Intent bindIntent = new Intent(this, MyService.class);
-                bindService(bindIntent,connection,BIND_AUTO_CREATE);
+                bindService(bindIntent, connection, BIND_AUTO_CREATE);
                 break;
             case R.id.unbind_service:
                 unbindService(connection);
@@ -545,7 +673,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.start_service:
                 Intent startIntent = new Intent(this, MyService.class);
                 startService(startIntent);
-                Log.i("MainActivity","启动服务");
+                Log.i("MainActivity", "启动服务");
                 break;
             case R.id.stop_service:
                 Intent stopIntent = new Intent(this, MyService.class);
@@ -752,6 +880,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             default:
         }
+    }
+
+    private void sendRequestWithHttpURLConnection() {
+        String address = "https://www.baidu.com";
+        HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
+            @Override
+            public void onFinish(String response) {
+                //将服务器返回结果存到Message中
+                Message message = new Message();
+                message.what = SHOW_RESPONSE;
+                message.obj = response;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Toast.makeText(getApplicationContext(), "请求失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     //点击注册，显示注册结果
