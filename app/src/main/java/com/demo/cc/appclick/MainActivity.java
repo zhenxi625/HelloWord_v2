@@ -40,6 +40,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.demo.cc.firstcode.BaiDuMapDemo;
 import com.demo.cc.firstcode.BaseActivity;
 import com.demo.cc.firstcode.LiaoTian;
 import com.demo.cc.firstcode.Second2Activity;
@@ -170,6 +171,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         positionTextView = (TextView) findViewById(R.id.position_text_view);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         getPosition();
+
+        //百度地图
+        TextView baiDuMap = (TextView) findViewById(R.id.baiDuMap);
+        baiDuMap.setOnClickListener(this);
 
         //发送请求
         Button sendRequest = (Button) findViewById(R.id.send_request);
@@ -655,6 +660,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.baiDuMap:
+                Intent baiDuMap = new Intent(this, BaiDuMapDemo.class);
+                this.startActivity(baiDuMap);
+                break;
             case R.id.send_request:
                 sendRequestWithHttpURLConnection();
                 break;

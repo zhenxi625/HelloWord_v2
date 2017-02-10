@@ -365,6 +365,17 @@
                         android:text="拍照" />
                 </TableRow>
 
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/baiDuMap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="百度地图" />
+
+                </TableRow>
+
             </TableLayout>
 
             <EditText
