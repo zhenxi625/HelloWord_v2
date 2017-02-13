@@ -43,6 +43,7 @@ import android.widget.Toast;
 import com.demo.cc.firstcode.BaiDuMapDemo;
 import com.demo.cc.firstcode.BaseActivity;
 import com.demo.cc.firstcode.LiaoTian;
+import com.demo.cc.firstcode.LightSensorTest;
 import com.demo.cc.firstcode.Second2Activity;
 import com.demo.cc.firstcode.UISizeLearn;
 import com.demo.cc.firstcode.contact.ContactsLearn;
@@ -171,6 +172,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         positionTextView = (TextView) findViewById(R.id.position_text_view);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         getPosition();
+
+        //百度地图
+        TextView lightSensor = (TextView) findViewById(R.id.light_sensor);
+        lightSensor.setOnClickListener(this);
 
         //百度地图
         TextView baiDuMap = (TextView) findViewById(R.id.baiDuMap);
@@ -660,6 +665,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.light_sensor:
+                Intent lightSensor = new Intent(this, LightSensorTest.class);
+                this.startActivity(lightSensor);
+                break;
             case R.id.baiDuMap:
                 Intent baiDuMap = new Intent(this, BaiDuMapDemo.class);
                 this.startActivity(baiDuMap);

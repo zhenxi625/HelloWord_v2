@@ -374,6 +374,13 @@
                         android:padding="7dp"
                         android:text="百度地图" />
 
+                    <TextView
+                        android:id="@+id/light_sensor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="光感" />
+
                 </TableRow>
 
             </TableLayout>

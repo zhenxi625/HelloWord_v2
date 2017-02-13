@@ -400,6 +400,7 @@
         <activity android:name="com.demo.cc.firstcode.sms.SMSActivity"/>
         <activity android:name="com.demo.cc.firstcode.sms.ChoosePic"/>
         <activity android:name="com.demo.cc.firstcode.BaiDuMapDemo"/>
+        <activity android:name="com.demo.cc.firstcode.LightSensorTest"/>
 
         <activity android:name="com.demo.cc.learn.TableLearn"/>
 
