@@ -14,7 +14,7 @@ import com.demo.cc.appclick.R;
  * Created by ChenXingLing on 2017/2/13.
  */
 
-public class AcceleromerterSensorTest extends BaseActivity {
+public class AccelerometerSensorTest extends BaseActivity {
 
     private SensorManager sensorManager;
 
@@ -44,7 +44,7 @@ public class AcceleromerterSensorTest extends BaseActivity {
             float yValue = Math.abs(event.values[1]);
             float zValue = Math.abs(event.values[2]);
             if (xValue > val || yValue > val || zValue > val){
-                Toast.makeText(AcceleromerterSensorTest.this,"摇一摇",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AccelerometerSensorTest.this,"摇一摇",Toast.LENGTH_SHORT).show();
             }
         }
 

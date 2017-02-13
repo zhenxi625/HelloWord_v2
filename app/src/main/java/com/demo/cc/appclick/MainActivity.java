@@ -40,9 +40,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.demo.cc.firstcode.AcceleromerterSensorTest;
+import com.demo.cc.firstcode.AccelerometerSensorTest;
 import com.demo.cc.firstcode.BaiDuMapDemo;
 import com.demo.cc.firstcode.BaseActivity;
+import com.demo.cc.firstcode.CompassTest;
 import com.demo.cc.firstcode.LiaoTian;
 import com.demo.cc.firstcode.LightSensorTest;
 import com.demo.cc.firstcode.Second2Activity;
@@ -177,6 +178,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //摇一摇
         TextView accSensor = (TextView) findViewById(R.id.acc_sensor);
         accSensor.setOnClickListener(this);
+
+        //指南针
+        TextView compassTest = (TextView) findViewById(R.id.compass_test);
+        compassTest.setOnClickListener(this);
 
         //光感
         TextView lightSensor = (TextView) findViewById(R.id.light_sensor);
@@ -671,8 +676,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.acc_sensor:
-                Intent accSensor = new Intent(this, AcceleromerterSensorTest.class);
+                Intent accSensor = new Intent(this, AccelerometerSensorTest.class);
                 this.startActivity(accSensor);
+                break;
+            case R.id.compass_test:
+                Intent compassTest = new Intent(this, CompassTest.class);
+                this.startActivity(compassTest);
                 break;
             case R.id.light_sensor:
                 Intent lightSensor = new Intent(this, LightSensorTest.class);
