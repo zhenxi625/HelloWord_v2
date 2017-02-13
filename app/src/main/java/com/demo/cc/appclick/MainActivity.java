@@ -40,6 +40,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.demo.cc.firstcode.AcceleromerterSensorTest;
 import com.demo.cc.firstcode.BaiDuMapDemo;
 import com.demo.cc.firstcode.BaseActivity;
 import com.demo.cc.firstcode.LiaoTian;
@@ -173,7 +174,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         getPosition();
 
-        //百度地图
+        //摇一摇
+        TextView accSensor = (TextView) findViewById(R.id.acc_sensor);
+        accSensor.setOnClickListener(this);
+
+        //光感
         TextView lightSensor = (TextView) findViewById(R.id.light_sensor);
         lightSensor.setOnClickListener(this);
 
@@ -665,6 +670,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.acc_sensor:
+                Intent accSensor = new Intent(this, AcceleromerterSensorTest.class);
+                this.startActivity(accSensor);
+                break;
             case R.id.light_sensor:
                 Intent lightSensor = new Intent(this, LightSensorTest.class);
                 this.startActivity(lightSensor);
