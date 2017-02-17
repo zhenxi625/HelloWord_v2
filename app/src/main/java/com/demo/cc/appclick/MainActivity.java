@@ -46,6 +46,7 @@ import com.demo.cc.firstcode.BaseActivity;
 import com.demo.cc.firstcode.CompassTest;
 import com.demo.cc.firstcode.LiaoTian;
 import com.demo.cc.firstcode.LightSensorTest;
+import com.demo.cc.firstcode.MyApplication;
 import com.demo.cc.firstcode.Second2Activity;
 import com.demo.cc.firstcode.UISizeLearn;
 import com.demo.cc.firstcode.contact.ContactsLearn;
@@ -932,7 +933,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onError(Exception e) {
-                Toast.makeText(getApplicationContext(), "请求失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApplication.getContext(), "请求失败", Toast.LENGTH_SHORT).show();
             }
         });
     }

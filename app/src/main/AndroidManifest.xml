@@ -333,7 +333,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light" >
+        android:theme="@style/Theme.AppCompat.Light"
+        android:name="com.demo.cc.firstcode.MyApplication">
         <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="bkv43kb4Q7c0FLTnBqh7hPa8" />
         <activity android:name="com.demo.cc.firstcode.receiver.LoginActivity"
             android:label="@string/app_name"
